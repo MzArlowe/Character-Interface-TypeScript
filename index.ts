@@ -24,3 +24,57 @@
 //            Create a new instance of the Player class and the Enemy class passing along the correct arguments for (name..health..attack..etc).
 //
 //            Call the attack function on the new Player instance, and pass in the new Enemy instance, see if it functions correctly.
+
+interface CharacterInterface {
+  name: string;
+  health: number;
+  attack: number;
+  defense: number;
+  accuracy: number;
+  attackTarget(target: CharacterInterface): void;
+}
+
+class Character implements CharacterInterface {
+  constructor(
+    public name: string,
+    public health: number,
+    public attack: number,
+    public defense: number,
+    public accuracy: number
+  ) {}
+
+  attackTarget(target: CharacterInterface) {
+    let damage;
+    console.log(
+      `${this.name} attacked ${target.name} with ${damage} damage 💥`
+    );
+  }
+}
+
+class Player extends Character {
+  constructor(
+    public name: string,
+    public health: number,
+    public attack: number,
+    public defense: number,
+    public accuracy: number
+  ) {
+    super(name, health, attack, defense, accuracy);
+  }
+}
+class Enemy extends Character {
+  constructor(
+    public name: string,
+    public health: number,
+    public attack: number,
+    public defense: number,
+    public accuracy: number
+  ) {
+    super(name, health, attack, defense, accuracy);
+  }
+}
+
+// name   hp   att, def, acc
+// let seniorEvil: Enemy = new Enemy("Name", 3130, 50, 30, 0.5);
+
+const Player1: Player = new Player("🗡 Dragon_Slayer", 3130, 50, 30, 0.5);
