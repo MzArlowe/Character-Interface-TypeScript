@@ -1,4 +1,4 @@
-//
+// 20MIN
 //            Create an interface called:
 //?                   CharacterInterface
 //
