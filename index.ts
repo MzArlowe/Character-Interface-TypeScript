@@ -44,7 +44,7 @@ class Character implements CharacterInterface {
   ) {}
 
   attackTarget(target: CharacterInterface) {
-    let damage;
+    let damage: number;
     console.log(
       `${this.name} attacked ${target.name} with ${damage} damage 💥`
     );
@@ -78,3 +78,13 @@ class Enemy extends Character {
 // let seniorEvil: Enemy = new Enemy("Name", 3130, 50, 30, 0.5);
 
 const Player1: Player = new Player("🗡 Dragon_Slayer", 3130, 50, 30, 0.5);
+const AI_Entry_Creature: Enemy = new Enemy("🔥🐰 Fire Rabbit", 500, 5, 7, 0.3);
+const AI_Ice_Dragon_Boss: Enemy = new Enemy(
+  "❄🐲 Ice Dragon",
+  5050,
+  25,
+  18,
+  0.4
+);
+
+Player1.attackTarget(AI_Entry_Creature);
