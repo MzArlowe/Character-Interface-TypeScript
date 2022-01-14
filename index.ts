@@ -34,6 +34,7 @@ interface CharacterInterface {
   accuracy: number;
   healthBar: HealthIcon[];
   attackTarget(target: CharacterInterface): void;
+  showHealth: () => void;
 }
 
 type HealthIcon = "🟩" | "🟥";
@@ -101,6 +102,8 @@ class Character implements CharacterInterface {
             for (let y = 0; y < +targetHealthPercent.toString()[2]; y++) {
               target.healthBar[y] = "🟩";
             }
+
+            target.showHealth();
           }
           if (target.health <= 0) {
             // ? CHECK IF TARGET STILL ALIVE
