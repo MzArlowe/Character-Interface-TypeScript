@@ -1,4 +1,4 @@
-﻿# Character-Interface-TypeScript
+﻿# Character-Interface using TypeScript
  
  This was an awesome challenge in which we had to design two character classes and have them battle to the death. 
  
