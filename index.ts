@@ -28,6 +28,7 @@
 interface CharacterInterface {
   name: string;
   health: number;
+  maxHealth: number;
   attack: number;
   defense: number;
   accuracy: number;
@@ -35,6 +36,7 @@ interface CharacterInterface {
 }
 
 class Character implements CharacterInterface {
+  maxHealth: number = this.health;
   constructor(
     public name: string,
     public health: number,
@@ -44,10 +46,24 @@ class Character implements CharacterInterface {
   ) {}
 
   attackTarget(target: CharacterInterface) {
-    let damage: number;
-    console.log(
-      `${this.name} attacked ${target.name} with ${damage} damage 💥`
-    );
+    // ? CHECK ATTACKER HEALTH
+    if (this.health <= 0) {
+      return;
+    } else {
+      // ? CHECK TARGET HEALTH
+      if (target.health > 0) {
+        // ? ATTACK LANDED
+        if (Math.random() > 1 - this.accuracy) {
+          let damage: number =
+            this.attack * (1 + target.defense) + Math.floor(Math.random() * 5);
+          console.log(
+            `${this.name} attacked ${target.name} with ${damage} damage 💥 \n`
+          );
+        } else {
+          console.log(`${this.name}'s Attack missed! ❌ \n`);
+        }
+      }
+    }
   }
 }
 
@@ -87,4 +103,6 @@ const AI_Ice_Dragon_Boss: Enemy = new Enemy(
   0.4
 );
 
-Player1.attackTarget(AI_Entry_Creature);
+for (let i = 1; i < 10; i++) {
+  Player1.attackTarget(AI_Entry_Creature);
+}
