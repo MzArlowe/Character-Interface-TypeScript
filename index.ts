@@ -122,6 +122,7 @@ class Character implements CharacterInterface {
       setTimeout(() => {
         console.log("Rest Complete. HP Restored!");
         this.health = this.maxHealth;
+        resolve("");
       }, 3000);
     });
   }
@@ -142,6 +143,11 @@ class Player extends Character {
     public accuracy: number
   ) {
     super(name, health, attack, defense, accuracy);
+
+    // IIFE function
+    (() => {
+      console.log(`Player ${this.name} joined the game. \n`);
+    })();
   }
 }
 class Enemy extends Character {
@@ -169,8 +175,29 @@ const AI_Ice_Dragon_Boss: Enemy = new Enemy(
   0.4
 );
 
-for (let i = 1; i < 10; i++) {
-  Player1.attackTarget(AI_Entry_Creature);
-  //break - refill their health
-  //play go against the boss
-}
+const maxNumOfTurns = 100;
+
+const EngageCombat = (a: CharacterInterface, b: CharacterInterface) => {
+  for (let i = 1; i < maxNumOfTurns; i++) {
+    if (Math.random() > 0.5) {
+      a.attackTarget(b);
+    } else {
+      b.attackTarget(a);
+    }
+  }
+};
+
+const ExecuteEvents = async () => {
+  // Fight first creature
+  EngageCombat(Player1, AI_Entry_Creature);
+
+  // Restore Health
+  await Player1.rest();
+
+  // Fight the boss
+  EngageCombat(Player1, AI_Ice_Dragon_Boss);
+};
+
+//play go against the boss
+
+ExecuteEvents();
