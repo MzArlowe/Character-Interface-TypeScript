@@ -116,6 +116,16 @@ class Character implements CharacterInterface {
     }
   }
 
+  async rest() {
+    console.log("Resting...");
+    return new Promise((resolve, reject): void => {
+      setTimeout(() => {
+        console.log("Rest Complete. HP Restored!");
+        this.health = this.maxHealth;
+      }, 3000);
+    });
+  }
+
   showHealth() {
     console.log(`[${this.name}]`);
     console.log(`${this.healthBar.join("")}`);
@@ -161,4 +171,6 @@ const AI_Ice_Dragon_Boss: Enemy = new Enemy(
 
 for (let i = 1; i < 10; i++) {
   Player1.attackTarget(AI_Entry_Creature);
+  //break - refill their health
+  //play go against the boss
 }
