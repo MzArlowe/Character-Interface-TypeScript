@@ -32,10 +32,26 @@ interface CharacterInterface {
   attack: number;
   defense: number;
   accuracy: number;
+  healthBar: HealthIcon[];
   attackTarget(target: CharacterInterface): void;
 }
 
+type HealthIcon = "🟩" | "🟥";
+
 class Character implements CharacterInterface {
+  healthBar: HealthIcon[] = [
+    "🟩",
+    "🟩",
+    "🟩",
+    "🟩",
+    "🟩",
+    "🟩",
+    "🟩",
+    "🟩",
+    "🟩",
+    "🟩",
+  ];
+
   maxHealth: number = this.health;
   constructor(
     public name: string,
@@ -59,11 +75,48 @@ class Character implements CharacterInterface {
           console.log(
             `${this.name} attacked ${target.name} with ${damage} damage 💥 \n`
           );
+          target.health -= damage;
+
+          // ? CHECKING TARGET'S HEALTH %
+          let targetHealthPercent = (target.health / target.maxHealth).toFixed(
+            2
+          );
+          if (targetHealthPercent.toString()[0] === "-") {
+            for (let x = 0; x < target.healthBar.length; x++) {
+              target.healthBar[x] = "🟥";
+            }
+          } else {
+            target.healthBar = [
+              "🟥",
+              "🟥",
+              "🟥",
+              "🟥",
+              "🟥",
+              "🟥",
+              "🟥",
+              "🟥",
+              "🟥",
+              "🟥",
+            ];
+            for (let y = 0; y < +targetHealthPercent.toString()[2]; y++) {
+              target.healthBar[y] = "🟩";
+            }
+          }
+          if (target.health <= 0) {
+            // ? CHECK IF TARGET STILL ALIVE
+            console.log(`${target.name} was defeated by ${this.name}... 💀 \n`);
+          }
         } else {
           console.log(`${this.name}'s Attack missed! ❌ \n`);
         }
       }
     }
+  }
+
+  showHealth() {
+    console.log(`[${this.name}]`);
+    console.log(`${this.healthBar.join("")}`);
+    console.log(`HP: ${this.health}/${this.maxHealth} \n`);
   }
 }
 
